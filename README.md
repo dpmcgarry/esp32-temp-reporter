@@ -69,15 +69,15 @@ On the 'server' I am running:
 
 * Ubuntu as the base OS
 * Mosquitto as mentioned for MQTT
-* Telegraf for processing MQTT messages and shipping them to downstream services (<https://www.influxdata.com/time-series-platform/telegraf/>)
 * InfluxDB for timeseries data storage(<https://www.influxdata.com/products/influxdb/>)
 * Grafana for visualization(<https://grafana.com/>)
 * MariaDB for non-time-series data storage (<https://mariadb.org/>)
 * HAProxy as a forward proxy to support SNI and hostname-based routing (<https://www.haproxy.org/>)
 * Certbot/Let's Encrypt for Certificates (<https://certbot.eff.org/>)
-* Bind9 for local DNS (<https://bind9.net/>)
+* Technitium for local DNS (<https://technitium.com/dns/>)
 * PiHole for Ad Blocking (<https://pi-hole.net/>)
 * AWS for backup/off-boat analytics (<https://aws.amazon.com/>)
+* Marine Sensorhub MQTT Router (<https://github.com/dpmcgarry/marine-sensorhub-mqtt>)
 
 All of these technologies are commercially proven and would likely be considered by most to be 'boring' technology (which is a good thing) <https://boringtechnology.club/>.
 
@@ -117,11 +117,7 @@ Get Intellisense working by adding this to your include path:
 
 ```json
 "~/.arduino15/packages/esp32/tools/esp32-arduino-libs/idf-release_v5.1-b6b4727c58/esp32c6/include/**",
-"~/.arduino15/packages/esp32/tools/esp-rv32/2302/riscv32-esp-elf/include/**" 
-```
-
-Manual Build Command:
-
+"~/.arduino15/packages/esp32/tools/esp-rv32/2302/risarduino-cli compile --fqbn esp32:esp32:esp32c6:FlashSize=8M,PartitionScheme=default_8MB esp32-marine-sensorhub.ino -v -e
 ESP32C6:
 
 ```bash
@@ -174,17 +170,35 @@ arduino-cli monitor --port /dev/ttyUSB0 --config baudrate=115200
 
 ### ESP Notes
 
-ESP32S3 SPI Pins:
+#### ESP32S3
+
+SPI Pins:
 MOSI: 11
 MISO: 13
 SCK: 12
 CS: 10
 
-ESP32C6 SPI Pins:
+FQBN: esp32:esp32:esp32s3:FlashSize=8M,PartitionScheme=default_8MB
+
+#### ESP32C6
+
+SPI Pins:
 MOSI: 19
 MISO: 20
 SCK: 21
 CS: 18
+
+FQBN: esp32:esp32:esp32c6:FlashSize=8M,PartitionScheme=default_8MB
+
+#### XiaoS3
+
+SPI Pins:
+MOSI: 18
+MISO: 20
+SCK: 19
+SS: 21
+
+FQBN: esp32:esp32:XIAO_ESP32S3
 
 ## TODO
 
@@ -206,9 +220,9 @@ CS: 18
 * ~~Add PT RTD support~~
 * Add configuration support for multiple RTD / Thermocouple Sensors by CS Pin
 * Add message structure for multiple RTD / Theromocouples
-* NTP Time is flaky - appears to be a race condition of some kind
+* ~~NTP Time is flaky - appears to be a race condition of some kind~~
 * ~~MQTT does not gracefully reconnect~~
-* Test what happens when WiFi is lost / regained
+* ~~Test what happens when WiFi is lost / regained~~
 * Figure out how to make a single flash file
 * Add INA219 Support for Oil Pressure, Engine Temp
 * ~~Test integration with Telegraf~~
@@ -219,3 +233,4 @@ CS: 18
 * Add an actual architecture diagram in here
 * Figure out how to use / add the default root CA trust store
 * ~~Setup a CI build for this so I can share releases~~
+* Add XiaoS3 Support

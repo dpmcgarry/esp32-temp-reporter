@@ -3,7 +3,7 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 orbs:
-  aws-cli: circleci/aws-cli@5.1.0
+  aws-cli: circleci/aws-cli@5.3.5
 jobs:
   build:
     environment:
